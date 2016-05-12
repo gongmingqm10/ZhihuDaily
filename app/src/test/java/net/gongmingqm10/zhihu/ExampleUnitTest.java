@@ -1,4 +1,4 @@
-package gongmingqm10.net.zhihudaily;
+package net.gongmingqm10.zhihu;
 
 import org.junit.Test;
 

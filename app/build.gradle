@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "gongmingqm10.net.zhihudaily"
+        applicationId "net.gongmingqm10.zhihu"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
