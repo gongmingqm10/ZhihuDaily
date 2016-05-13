@@ -1,4 +1,4 @@
-package net.gongmingqm10.zhihu.fragment;
+package net.gongmingqm10.zhihu.view.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
