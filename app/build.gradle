@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "net.gongmingqm10.zhihu"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -26,6 +26,7 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
 
     compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
     compile 'com.google.dagger:dagger:2.4'
     apt 'com.google.dagger:dagger-compiler:2.4'
