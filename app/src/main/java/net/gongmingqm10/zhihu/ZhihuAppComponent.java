@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.LocationManager;
 
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
+import net.gongmingqm10.zhihu.network.NetworkMgr;
 
 import javax.inject.Singleton;
 
@@ -22,4 +23,6 @@ public interface ZhihuAppComponent {
     SharedPreferenceMgr sharedPreferenceMgr();
 
     LocationManager locationManager();
+
+    NetworkMgr networkMgr();
 }

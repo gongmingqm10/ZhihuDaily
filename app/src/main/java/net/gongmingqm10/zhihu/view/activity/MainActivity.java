@@ -1,6 +1,7 @@
 package net.gongmingqm10.zhihu.view.activity;
 
 import android.location.LocationManager;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import net.gongmingqm10.zhihu.R;
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
+import net.gongmingqm10.zhihu.network.NetworkMgr;
 
 import javax.inject.Inject;
 
@@ -39,6 +41,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Inject
     SharedPreferenceMgr sharedPreferenceMgr;
 
+    @Inject
+    NetworkMgr networkMgr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         locationManager.toString();
         sharedPreferenceMgr.toString();
+        networkMgr.toString();
     }
 
     @OnClick(R.id.fab)

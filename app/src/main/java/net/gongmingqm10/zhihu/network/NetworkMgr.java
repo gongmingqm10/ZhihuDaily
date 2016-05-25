@@ -16,23 +16,20 @@ public class NetworkMgr {
 
     private static final String BASE_URL = "http://gongmingqm10.net";
 
-    private static NetworkMgr instance;
-    private final Retrofit retrofit;
+    private ZhihuApi zhihuApi;
 
-    private NetworkMgr() {
-        retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+    public NetworkMgr() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(getOkHttpClient()).build();
+        zhihuApi = retrofit.create(ZhihuApi.class);
     }
 
     private OkHttpClient getOkHttpClient() {
-        OkHttpClient httpClient = new OkHttpClient();
-
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(loggingInterceptor);
 
-        httpClient.interceptors().add(new Interceptor() {
+        Interceptor networkInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder requestBuilder = chain.request().newBuilder()
@@ -40,19 +37,13 @@ public class NetworkMgr {
                 // Add any headers you want here.
                 return chain.proceed(requestBuilder.build());
             }
-        });
-        return httpClient;
+        };
+
+        return new OkHttpClient.Builder().addInterceptor(loggingInterceptor)
+                .addNetworkInterceptor(networkInterceptor).build();
     }
 
-    public static NetworkMgr getInstance() {
-        if (instance == null) {
-            instance = new NetworkMgr();
-        }
-        return instance;
+    public ZhihuApi getZhihuApi() {
+        return zhihuApi;
     }
-
-    public static ZhihuApi getZhihuApi() {
-        return getInstance().retrofit.create(ZhihuApi.class);
-    }
-
 }

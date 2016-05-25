@@ -5,6 +5,8 @@ import android.content.Context;
 import android.location.LocationManager;
 
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
+import net.gongmingqm10.zhihu.network.NetworkMgr;
+import net.gongmingqm10.zhihu.network.ZhihuApi;
 
 import javax.inject.Singleton;
 
@@ -38,6 +40,11 @@ public class ZhihuAppModule {
     @Provides @Singleton
     SharedPreferenceMgr sharedPreferenceMgr(Context context) {
         return new SharedPreferenceMgr(context);
+    }
+
+    @Provides @Singleton
+    NetworkMgr provideNetworkMgr() {
+        return new NetworkMgr();
     }
 
 }
