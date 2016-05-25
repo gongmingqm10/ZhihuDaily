@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import net.gongmingqm10.zhihu.ZhihuApp;
+import net.gongmingqm10.zhihu.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.presenter.BaseView;
 
 import butterknife.ButterKnife;
@@ -17,6 +19,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
+    }
+
+    ZhihuAppComponent getAppComponent() {
+        return ((ZhihuApp) getApplication()).component();
     }
 
     protected abstract int getLayoutRes();

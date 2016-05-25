@@ -1,5 +1,6 @@
 package net.gongmingqm10.zhihu.view.activity;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import net.gongmingqm10.zhihu.R;
+import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private MainComponent mainComponent;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -27,9 +33,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    @Inject
+    LocationManager locationManager;
+
+    @Inject
+    SharedPreferenceMgr sharedPreferenceMgr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        component().inject(this);
 
         setSupportActionBar(toolbar);
 
@@ -39,6 +53,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        locationManager.toString();
+        sharedPreferenceMgr.toString();
     }
 
     @OnClick(R.id.fab)
@@ -104,5 +121,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    protected MainComponent component() {
+        if (mainComponent == null) {
+            mainComponent = DaggerMainComponent.builder()
+                    .zhihuAppComponent(getAppComponent())
+                    .activityModule(new ActivityModule(this))
+                    .build();
+        }
+        return mainComponent;
     }
 }

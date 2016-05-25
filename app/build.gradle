@@ -37,4 +37,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
 
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.0"
+
 }
