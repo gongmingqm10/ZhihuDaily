@@ -1,8 +1,5 @@
 package net.gongmingqm10.zhihu.network;
 
-import net.gongmingqm10.zhihu.BuildConfig;
-import net.gongmingqm10.zhihu.ZhihuApp;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -15,7 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitAdapter {
 
-    private static final String BASE_URL = "http://news-at.zhihu.com";
+    private static final String BASE_URL = "https://api.dribbble.com";
+    private static final String ACCESS_TOKEN = "34d7a0e44d9e6231eed4291f81e6390a9dd0baf24e9c9b0fea992fe9c24baa4e";
 
     private static RetrofitAdapter retrofitAdapter;
     private ZhihuApi zhihuApi;
@@ -42,8 +40,7 @@ public class RetrofitAdapter {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder requestBuilder = chain.request().newBuilder()
-                        .addHeader("App-Version", BuildConfig.VERSION_NAME);
-                // Add any headers you want here.
+                        .addHeader("Authorization", "Bearer " + ACCESS_TOKEN);
                 return chain.proceed(requestBuilder.build());
             }
         };
