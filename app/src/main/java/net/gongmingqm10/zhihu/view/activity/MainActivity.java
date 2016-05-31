@@ -1,7 +1,6 @@
 package net.gongmingqm10.zhihu.view.activity;
 
 import android.location.LocationManager;
-import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,19 +11,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import net.gongmingqm10.zhihu.R;
+import net.gongmingqm10.zhihu.dagger2.DaggerMainComponent;
+import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
+import net.gongmingqm10.zhihu.dagger2.MainModule;
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
-import net.gongmingqm10.zhihu.network.NetworkMgr;
+import net.gongmingqm10.zhihu.model.Theme;
+import net.gongmingqm10.zhihu.presenter.MainPresenter;
+import net.gongmingqm10.zhihu.presenter.Presenter;
+import net.gongmingqm10.zhihu.view.adapter.MainMenuAdapter;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private MainComponent mainComponent;
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.MainView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -35,33 +41,39 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    @BindView(R.id.main_menu_list)
+    ListView mainMenuList;
+
+    @Inject
+    MainPresenter presenter;
+
     @Inject
     LocationManager locationManager;
 
     @Inject
     SharedPreferenceMgr sharedPreferenceMgr;
 
-    @Inject
-    NetworkMgr networkMgr;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        component().inject(this);
 
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        locationManager.toString();
-        sharedPreferenceMgr.toString();
-        networkMgr.toString();
+        presenter.loadThemes();
+    }
+
+    @Override
+    protected void setupComponent(ZhihuAppComponent appComponent) {
+        DaggerMainComponent.builder().zhihuAppComponent(appComponent)
+                .mainModule(new MainModule(this))
+                .build().inject(this);
     }
 
     @OnClick(R.id.fab)
@@ -73,6 +85,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    Presenter getPresenter() {
+        return presenter;
     }
 
     @Override
@@ -111,31 +128,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    protected MainComponent component() {
-        if (mainComponent == null) {
-            mainComponent = DaggerMainComponent.builder()
-                    .zhihuAppComponent(getAppComponent())
-                    .activityModule(new ActivityModule(this))
-                    .build();
-        }
-        return mainComponent;
+    @Override
+    public void updateList(List<Theme> themes) {
+        mainMenuList.setAdapter(new MainMenuAdapter(this, themes));
     }
 }

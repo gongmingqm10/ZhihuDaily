@@ -1,4 +1,4 @@
-package net.gongmingqm10.zhihu.view.activity;
+package net.gongmingqm10.zhihu.dagger2;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

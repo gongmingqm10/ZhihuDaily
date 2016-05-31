@@ -54,4 +54,14 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     }
 
     protected abstract int getLayoutRes();
+
+    @Override
+    public void showToast(String message) {
+        baseActivity.showToast(message);
+    }
+
+    @Override
+    public void showToast(int resId) {
+        baseActivity.showToast(resId);
+    }
 }
