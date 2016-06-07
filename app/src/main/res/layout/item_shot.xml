@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/s_space">
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <ImageView
                 android:id="@+id/shot_image"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -78,11 +78,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/shot_author_avatar"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:roundAsCircle="true" />
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@android:color/white" />
 
         <TextView
             android:id="@+id/shot_author_name"

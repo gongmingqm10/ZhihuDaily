@@ -1,23 +1,23 @@
 package net.gongmingqm10.zhihu.view.adapter.viewholder;
 
+import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import net.gongmingqm10.zhihu.R;
 import net.gongmingqm10.zhihu.model.Shot;
 import net.gongmingqm10.zhihu.view.util.ImageLoader;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShotViewHolder extends BaseViewHolder<Shot> {
     @BindView(R.id.shot_image)
-    SimpleDraweeView shotImage;
+    ImageView shotImage;
 
     @BindView(R.id.shot_author_avatar)
-    SimpleDraweeView authorAvatar;
+    CircleImageView authorAvatar;
 
     @BindView(R.id.shot_view_text)
     TextView shotViewCountText;
@@ -31,14 +31,14 @@ public class ShotViewHolder extends BaseViewHolder<Shot> {
     @BindView(R.id.shot_author_name)
     TextView shotAuthorText;
 
-    public ShotViewHolder(View view) {
-        super(view);
+    public ShotViewHolder(Context context, View itemView) {
+        super(context, itemView);
     }
 
     @Override
     public void populate(Shot data) {
-        ImageLoader.loadImage(shotImage, data.getImage().getNormal());
-        ImageLoader.loadImage(authorAvatar, data.getUser().getAvatarUrl());
+        ImageLoader.loadImage(context, shotImage, data.getImage().getNormal());
+        ImageLoader.loadImage(context, authorAvatar, data.getUser().getAvatarUrl());
         shotViewCountText.setText(String.valueOf(data.getViewsCount()));
         shotLoveCountText.setText(String.valueOf(data.getLikesCount()));
         shotCommentsCountText.setText(String.valueOf(data.getCommentsCount()));

@@ -3,8 +3,6 @@ package net.gongmingqm10.zhihu;
 import android.app.Application;
 import android.location.LocationManager;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-
 import net.gongmingqm10.zhihu.dagger2.DaggerZhihuAppComponent;
 import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.dagger2.ZhihuAppModule;
@@ -26,8 +24,6 @@ public class ZhihuApp extends Application {
     public void onCreate() {
         super.onCreate();
         setupComponent();
-
-        Fresco.initialize(this);
     }
 
     private void setupComponent() {

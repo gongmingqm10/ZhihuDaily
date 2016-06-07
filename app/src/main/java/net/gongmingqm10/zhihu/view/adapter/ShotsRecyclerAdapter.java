@@ -26,7 +26,7 @@ public class ShotsRecyclerAdapter extends RecyclerView.Adapter<ShotViewHolder> {
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.item_shot, parent, false);
-        return new ShotViewHolder(convertView);
+        return new ShotViewHolder(context, convertView);
     }
 
     @Override
@@ -45,5 +45,12 @@ public class ShotsRecyclerAdapter extends RecyclerView.Adapter<ShotViewHolder> {
         }
         shots.addAll(data);
         this.notifyDataSetChanged();
+    }
+
+    public void clear() {
+        if (shots == null) {
+            shots = new ArrayList<>();
+        }
+        shots.clear();
     }
 }
