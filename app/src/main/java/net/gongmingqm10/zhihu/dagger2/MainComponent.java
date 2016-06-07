@@ -1,6 +1,7 @@
 package net.gongmingqm10.zhihu.dagger2;
 
 import net.gongmingqm10.zhihu.view.activity.MainActivity;
+import net.gongmingqm10.zhihu.view.fragment.MainBaseFragment;
 
 import dagger.Component;
 
@@ -11,4 +12,5 @@ import dagger.Component;
 )
 public interface MainComponent {
     void inject(MainActivity mainActivity);
+    void inject(MainBaseFragment baseFragment);
 }

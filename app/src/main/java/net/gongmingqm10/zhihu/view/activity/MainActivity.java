@@ -16,7 +16,7 @@ import net.gongmingqm10.zhihu.dagger2.DaggerMainComponent;
 import net.gongmingqm10.zhihu.dagger2.MainModule;
 import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
-import net.gongmingqm10.zhihu.presenter.MainPresenter;
+import net.gongmingqm10.zhihu.presenter.HomePresenter;
 import net.gongmingqm10.zhihu.presenter.Presenter;
 import net.gongmingqm10.zhihu.view.fragment.DesignersFragment;
 import net.gongmingqm10.zhihu.view.fragment.HomeFragment;
@@ -27,7 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainPresenter.MainView {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, HomePresenter.HomeView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
 
     @Inject
-    MainPresenter presenter;
+    HomePresenter presenter;
 
     @Inject
     LocationManager locationManager;
@@ -62,7 +62,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        presenter.loadThemes();
+        checkHomeMenu();
+    }
+
+    private void checkHomeMenu() {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
     }
 
     @Override
@@ -129,6 +134,4 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         transaction.addToBackStack(fragment.getClass().getName());
         transaction.commit();
     }
-
-
 }

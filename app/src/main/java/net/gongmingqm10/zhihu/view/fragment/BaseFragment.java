@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.gongmingqm10.zhihu.ZhihuApp;
+import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.presenter.BaseView;
 import net.gongmingqm10.zhihu.view.activity.BaseActivity;
 
@@ -35,6 +37,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), null);
         ButterKnife.bind(this, view);
+        setupComponent(((ZhihuApp) getActivity().getApplication()).component());
         return view;
     }
 
@@ -64,4 +67,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void showToast(int resId) {
         baseActivity.showToast(resId);
     }
+
+    protected abstract void setupComponent(ZhihuAppComponent appComponent);
 }

@@ -23,10 +23,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
         setupComponent(((ZhihuApp) getApplication()).component());
-
-        if (getPresenter() != null) {
-            getPresenter().attachView(this);
-        }
     }
 
     protected abstract void setupComponent(ZhihuAppComponent appComponent);
