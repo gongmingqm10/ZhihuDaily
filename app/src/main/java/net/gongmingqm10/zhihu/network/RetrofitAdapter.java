@@ -1,5 +1,8 @@
 package net.gongmingqm10.zhihu.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -26,8 +29,9 @@ public class RetrofitAdapter {
     }
 
     private RetrofitAdapter() {
+        Gson customGson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssz").create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(customGson))
                 .client(getOkHttpClient()).build();
         zhihuApi = retrofit.create(ZhihuApi.class);
     }

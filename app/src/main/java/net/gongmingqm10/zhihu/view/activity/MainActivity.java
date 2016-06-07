@@ -11,19 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
 import net.gongmingqm10.zhihu.R;
 import net.gongmingqm10.zhihu.dagger2.DaggerMainComponent;
-import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.dagger2.MainModule;
+import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
-import net.gongmingqm10.zhihu.model.Theme;
 import net.gongmingqm10.zhihu.presenter.MainPresenter;
 import net.gongmingqm10.zhihu.presenter.Presenter;
-import net.gongmingqm10.zhihu.view.adapter.MainMenuAdapter;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,9 +35,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
-    @BindView(R.id.main_menu_list)
-    ListView mainMenuList;
 
     @Inject
     MainPresenter presenter;
@@ -130,10 +122,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int id = item.getItemId();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void updateList(List<Theme> themes) {
-        mainMenuList.setAdapter(new MainMenuAdapter(this, themes));
     }
 }
