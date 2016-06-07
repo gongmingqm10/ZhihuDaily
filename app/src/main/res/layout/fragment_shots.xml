@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:text="Shots"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shots_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -34,5 +34,7 @@ public class Shot {
     private String likesUrl;
     @SerializedName("projects_url")
     private String projectsUrl;
+    @SerializedName("images")
+    private Image image;
     private User user;
 }

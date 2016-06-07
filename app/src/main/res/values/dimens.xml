@@ -7,7 +7,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="t_space">4dp</dimen>
     <dimen name="s_space">8dp</dimen>
     <dimen name="m_space">12dp</dimen>
     <dimen name="l_space">16dp</dimen>
+
+    <dimen name="font_size_tiny">10sp</dimen>
+    <dimen name="font_size_small">13sp</dimen>
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="font_size_normal">18sp</dimen>
+    <dimen name="font_size_large">21sp</dimen>
 </resources>
