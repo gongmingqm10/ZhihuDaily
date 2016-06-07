@@ -16,10 +16,8 @@ import net.gongmingqm10.zhihu.dagger2.DaggerMainComponent;
 import net.gongmingqm10.zhihu.dagger2.MainModule;
 import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.data.SharedPreferenceMgr;
-import net.gongmingqm10.zhihu.presenter.HomePresenter;
 import net.gongmingqm10.zhihu.presenter.Presenter;
 import net.gongmingqm10.zhihu.view.fragment.DesignersFragment;
-import net.gongmingqm10.zhihu.view.fragment.HomeFragment;
 import net.gongmingqm10.zhihu.view.fragment.ShotsFragment;
 import net.gongmingqm10.zhihu.view.fragment.StoriesFragment;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, HomePresenter.HomeView {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,15 +37,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
 
     @Inject
-    HomePresenter presenter;
-
-    @Inject
     LocationManager locationManager;
 
     @Inject
     SharedPreferenceMgr sharedPreferenceMgr;
 
-    private Fragment designerFragment, homeFragment, shotsFragment, storiesFragment;
+    private Fragment designerFragment, shotsFragment, storiesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +68,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void setupComponent(ZhihuAppComponent appComponent) {
         DaggerMainComponent.builder().zhihuAppComponent(appComponent)
-                .mainModule(new MainModule(this))
+                .mainModule(new MainModule())
                 .build().inject(this);
     }
 
@@ -84,7 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     Presenter getPresenter() {
-        return presenter;
+        return null;
     }
 
     @Override
@@ -99,12 +94,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_home:
-                if (homeFragment == null) {
-                    homeFragment = HomeFragment.instantiate(this, HomeFragment.class.getName());
-                }
-                startFragment(homeFragment);
-                break;
             case R.id.nav_shots:
                 if (shotsFragment == null) {
                     shotsFragment = ShotsFragment.instantiate(this, ShotsFragment.class.getName());

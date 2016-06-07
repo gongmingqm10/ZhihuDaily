@@ -2,7 +2,6 @@ package net.gongmingqm10.zhihu.dagger2;
 
 import net.gongmingqm10.zhihu.network.ZhihuApi;
 import net.gongmingqm10.zhihu.presenter.DesignersPresenter;
-import net.gongmingqm10.zhihu.presenter.HomePresenter;
 import net.gongmingqm10.zhihu.presenter.ShotsPresenter;
 import net.gongmingqm10.zhihu.presenter.StoriesPresenter;
 
@@ -11,13 +10,11 @@ import dagger.Provides;
 
 @Module
 public class MainModule {
-    private HomePresenter.HomeView mainView;
     private DesignersPresenter.DesignersView designersView;
     private ShotsPresenter.ShotsView shotsView;
     private StoriesPresenter.StoriesView storiesView;
 
-    public MainModule(HomePresenter.HomeView mainView) {
-        this.mainView = mainView;
+    public MainModule() {
     }
 
     public MainModule(DesignersPresenter.DesignersView designersView) {
@@ -33,11 +30,6 @@ public class MainModule {
     }
 
     @Provides
-    public HomePresenter.HomeView provideMainView() {
-        return mainView;
-    }
-
-    @Provides
     public StoriesPresenter.StoriesView provideStoriesView() {
         return storiesView;
     }
@@ -50,11 +42,6 @@ public class MainModule {
     @Provides
     public DesignersPresenter.DesignersView provideDesignersView() {
         return designersView;
-    }
-
-    @Provides
-    public HomePresenter provideMainPresenter(HomePresenter.HomeView mainView, ZhihuApi zhihuApi) {
-        return new HomePresenter(mainView, zhihuApi);
     }
 
     @Provides
