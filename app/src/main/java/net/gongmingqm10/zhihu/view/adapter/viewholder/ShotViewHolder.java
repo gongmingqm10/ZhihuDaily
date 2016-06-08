@@ -1,6 +1,7 @@
 package net.gongmingqm10.zhihu.view.adapter.viewholder;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,17 +32,63 @@ public class ShotViewHolder extends BaseViewHolder<Shot> {
     @BindView(R.id.shot_author_name)
     TextView shotAuthorText;
 
-    public ShotViewHolder(Context context, View itemView) {
-        super(context, itemView);
+    @BindView(R.id.shot_user_panel)
+    View userPanelView;
+
+    @BindView(R.id.shot_card_view)
+    CardView shotCardView;
+
+    private ShotClickListener shotClickListener;
+
+    public ShotViewHolder(Context context, View convertView, ShotClickListener shotClickListener) {
+        super(context, convertView);
+        this.shotClickListener = shotClickListener;
     }
 
     @Override
-    public void populate(Shot data) {
+    public void populate(final Shot data) {
+        if (data == null) return;
+        bindClickListeners(data);
+
         ImageLoader.loadImage(context, shotImage, data.getImage().getNormal());
         ImageLoader.loadImage(context, authorAvatar, data.getUser().getAvatarUrl());
+
         shotViewCountText.setText(String.valueOf(data.getViewsCount()));
         shotLoveCountText.setText(String.valueOf(data.getLikesCount()));
         shotCommentsCountText.setText(String.valueOf(data.getCommentsCount()));
         shotAuthorText.setText(data.getUser().getName());
+    }
+
+    private void bindClickListeners(final Shot data) {
+        shotLoveCountText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shotClickListener != null) {
+                    shotClickListener.likeShot(data);
+                }
+            }
+        });
+        userPanelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shotClickListener != null) {
+                    shotClickListener.viewAuthor(data);
+                }
+            }
+        });
+        shotCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shotClickListener != null) {
+                    shotClickListener.viewShot(data);
+                }
+            }
+        });
+    }
+
+    public interface ShotClickListener {
+        void viewShot(Shot shot);
+        void likeShot(Shot shot);
+        void viewAuthor(Shot shot);
     }
 }

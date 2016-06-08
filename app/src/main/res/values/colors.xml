@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF849B</color>
 
     <color name="bg_page">#F1F1F1</color>
-
+    <color name="font_dark">#de000000</color>
+    <color name="font_material_gray">#ff212121</color>
     <color name="font_gray">#BBBBBB</color>
+    <color name="line_color">#CCCCCC</color>
 </resources>

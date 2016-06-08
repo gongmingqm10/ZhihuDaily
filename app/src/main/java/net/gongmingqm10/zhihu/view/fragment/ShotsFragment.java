@@ -16,7 +16,9 @@ import net.gongmingqm10.zhihu.dagger2.MainModule;
 import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.model.Shot;
 import net.gongmingqm10.zhihu.presenter.ShotsPresenter;
+import net.gongmingqm10.zhihu.view.activity.ShotActivity;
 import net.gongmingqm10.zhihu.view.adapter.ShotsRecyclerAdapter;
+import net.gongmingqm10.zhihu.view.adapter.viewholder.ShotViewHolder;
 import net.gongmingqm10.zhihu.view.util.Constants;
 import net.gongmingqm10.zhihu.view.util.SpacesItemDecoration;
 import net.gongmingqm10.zhihu.view.util.StaggeredScrollBottomListener;
@@ -74,7 +76,7 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         shotsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         shotsRecyclerView.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.m_space)));
 
-        shotsListAdapter = new ShotsRecyclerAdapter(getActivity(), new ArrayList<Shot>());
+        shotsListAdapter = new ShotsRecyclerAdapter(getActivity(), new ArrayList<Shot>(), shotClickListener);
         shotsRecyclerView.setAdapter(shotsListAdapter);
         shotsRecyclerView.addOnScrollListener(scrollBottomListener);
     }
@@ -206,4 +208,22 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
             return value;
         }
     }
+
+    private ShotViewHolder.ShotClickListener shotClickListener = new ShotViewHolder.ShotClickListener() {
+        @Override
+        public void viewShot(Shot shot) {
+            // User view this Shot
+            startActivity(ShotActivity.getIntentToMe(getActivity(), shot.getId()));
+        }
+
+        @Override
+        public void likeShot(Shot shot) {
+            // User Liked this Shot
+        }
+
+        @Override
+        public void viewAuthor(Shot shot) {
+            // User click the Author Panel
+        }
+    };
 }

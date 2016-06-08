@@ -2,6 +2,7 @@ package net.gongmingqm10.zhihu.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -37,4 +38,8 @@ public class Shot {
     @SerializedName("images")
     private Image image;
     private User user;
+    @SerializedName("created_at")
+    private Date createdAt;
+    @SerializedName("updated_at")
+    private Date updatedAt;
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/l_space">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/shot_user_avatar"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        tools:src="@mipmap/default_avatar" />
+
+    <TextView
+        android:id="@+id/shot_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/s_space"
+        android:layout_toEndOf="@id/shot_user_avatar"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="@dimen/font_size_medium"
+        tools:text="Jay Lee" />
+
+    <TextView
+        android:id="@+id/shot_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/shot_user_name"
+        android:layout_below="@id/shot_user_name"
+        android:textColor="@color/font_dark"
+        android:textSize="@dimen/font_size_small"
+        android:layout_marginTop="4dp"
+        tools:text="I think he used a plugin called the pastiche" />
+
+    <TextView
+        android:id="@+id/shot_comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/shot_comment_content"
+        android:layout_below="@id/shot_comment_content"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_tiny"
+        android:layout_marginTop="@dimen/s_space"
+        android:text="2 days ago | Like?" />
+
+    <TextView
+        android:id="@+id/comment_love_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="1dp"
+        android:drawableStart="@mipmap/ic_heart"
+        android:gravity="center_vertical"
+        android:textColor="@color/font_gray"
+        android:textSize="@dimen/font_size_tiny"
+        android:layout_alignTop="@id/shot_comment_time"
+        android:layout_alignParentEnd="true"
+        tools:text="300" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_margin="@dimen/l_space"
+        android:layout_below="@id/shot_comment_time"
+        android:background="@color/line_color" />
+
+</RelativeLayout>

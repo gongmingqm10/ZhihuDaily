@@ -1,6 +1,7 @@
 package net.gongmingqm10.zhihu.dagger2;
 
 import net.gongmingqm10.zhihu.view.activity.MainActivity;
+import net.gongmingqm10.zhihu.view.activity.ShotActivity;
 import net.gongmingqm10.zhihu.view.fragment.DesignersFragment;
 import net.gongmingqm10.zhihu.view.fragment.ShotsFragment;
 import net.gongmingqm10.zhihu.view.fragment.StoriesFragment;

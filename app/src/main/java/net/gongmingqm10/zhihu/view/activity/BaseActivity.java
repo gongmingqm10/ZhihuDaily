@@ -49,6 +49,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
+    public void loading(int resId) {
+        loading(getString(resId));
+    }
+
+    @Override
     public void loaded() {
         if (loadingDialog != null) {
             loadingDialog.dismiss();

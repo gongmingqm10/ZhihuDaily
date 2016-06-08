@@ -57,6 +57,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         baseActivity.loaded();
     }
 
+    @Override
+    public void loading(int resId) {
+        loading(getString(resId));
+    }
+
     protected abstract int getLayoutRes();
 
     @Override

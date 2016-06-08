@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Image {
-    private String hdpi;
+    private String hidpi;
     private String normal;
     private String teaser;
 }

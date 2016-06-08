@@ -17,16 +17,18 @@ public class ShotsRecyclerAdapter extends RecyclerView.Adapter<ShotViewHolder> {
 
     private Context context;
     private List<Shot> shots;
+    private ShotViewHolder.ShotClickListener shotClickListener;
 
-    public ShotsRecyclerAdapter(Context context, List<Shot> shots) {
+    public ShotsRecyclerAdapter(Context context, List<Shot> shots, ShotViewHolder.ShotClickListener shotClickListener) {
         this.context = context;
         this.shots = shots;
+        this.shotClickListener = shotClickListener;
     }
 
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.item_shot, parent, false);
-        return new ShotViewHolder(context, convertView);
+        return new ShotViewHolder(context, convertView, shotClickListener);
     }
 
     @Override
