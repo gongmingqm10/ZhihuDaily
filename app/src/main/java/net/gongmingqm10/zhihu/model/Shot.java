@@ -14,7 +14,7 @@ public class Shot {
     private String title;
     private String description;
     private List<String> tags;
-    @SerializedName("view_count")
+    @SerializedName("views_count")
     private int viewsCount;
     @SerializedName("likes_count")
     private int likesCount;
