@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import net.gongmingqm10.zhihu.R;
@@ -96,19 +97,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case R.id.nav_shots:
                 if (shotsFragment == null) {
-                    shotsFragment = ShotsFragment.instantiate(this, ShotsFragment.class.getName());
+                    shotsFragment = ShotsFragment.newInstance();
                 }
                 startFragment(shotsFragment);
                 break;
             case R.id.nav_designers:
                 if (designerFragment == null) {
-                    designerFragment = DesignersFragment.instantiate(this, DesignersFragment.class.getName());
+                    designerFragment = DesignersFragment.newInstance();
                 }
                 startFragment(designerFragment);
                 break;
             case R.id.nav_stories:
                 if (storiesFragment == null) {
-                    storiesFragment = StoriesFragment.instantiate(this, StoriesFragment.class.getName());
+                    storiesFragment = StoriesFragment.newInstance();
                 }
                 startFragment(storiesFragment);
                 break;
@@ -122,5 +123,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         transaction.replace(R.id.main_container, fragment);
         transaction.addToBackStack(fragment.getClass().getName());
         transaction.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }

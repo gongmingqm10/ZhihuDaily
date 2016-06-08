@@ -10,6 +10,11 @@ import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.presenter.StoriesPresenter;
 
 public class StoriesFragment extends BaseFragment implements StoriesPresenter.StoriesView {
+
+    public static StoriesFragment newInstance() {
+        return new StoriesFragment();
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

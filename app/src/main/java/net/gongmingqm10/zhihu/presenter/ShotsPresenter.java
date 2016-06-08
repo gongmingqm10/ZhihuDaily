@@ -12,8 +12,8 @@ public class ShotsPresenter extends Presenter<ShotsPresenter.ShotsView> {
         super(view, zhihuApi);
     }
 
-    public void loadShots(int pageNumber) {
-        zhihuApi.listShots(pageNumber).enqueue(new ApiCallback<List<Shot>>() {
+    public void loadShots(int pageNumber, String sort) {
+        zhihuApi.listShots(pageNumber, sort).enqueue(new ApiCallback<List<Shot>>() {
             @Override
             public void onSuccess(List<Shot> data) {
                 view.refreshList(data);

@@ -1,5 +1,6 @@
 package net.gongmingqm10.zhihu.view.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,12 +20,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     private BaseActivity baseActivity;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    // Fucking! onAttach(Context) is new in API23, it will not called below API23, while onAttach(Activity) is depracted.
+    private void attachActivity() {
         try {
-            if (context instanceof BaseActivity) {
-                baseActivity = (BaseActivity) context;
+            if (getActivity() instanceof BaseActivity) {
+                baseActivity = (BaseActivity) getActivity();
             } else {
                 throw new ClassCastException("Fragment should be started by the BaseActivity");
             }
@@ -38,6 +38,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         View view = inflater.inflate(getLayoutRes(), null);
         ButterKnife.bind(this, view);
         setupComponent(((ZhihuApp) getActivity().getApplication()).component());
+        attachActivity();
         return view;
     }
 

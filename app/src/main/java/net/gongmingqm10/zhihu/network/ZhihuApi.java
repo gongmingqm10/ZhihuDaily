@@ -11,6 +11,6 @@ import retrofit2.http.Query;
 public interface ZhihuApi {
 
     @GET("/v1/shots?per_page=30")
-    Call<List<Shot>> listShots(@Query("page") int page);
+    Call<List<Shot>> listShots(@Query("page") int page, @Query("sort") String sort);
 
 }

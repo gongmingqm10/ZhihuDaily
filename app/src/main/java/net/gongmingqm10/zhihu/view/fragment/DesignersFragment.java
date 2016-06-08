@@ -11,6 +11,10 @@ import net.gongmingqm10.zhihu.presenter.DesignersPresenter;
 
 public class DesignersFragment extends BaseFragment implements DesignersPresenter.DesignersView {
 
+    public static DesignersFragment newInstance() {
+        return new DesignersFragment();
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

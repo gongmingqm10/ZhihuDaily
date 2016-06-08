@@ -2,8 +2,11 @@ package net.gongmingqm10.zhihu.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -36,10 +39,22 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
     @Inject
     ShotsPresenter shotsPresenter;
 
+    private PopupMenu popupMenu;
     private ShotsRecyclerAdapter shotsListAdapter;
     private boolean isLoading = true;
     private boolean isFinished = false;
     private int currentPage = 0;
+    private Sort sort = Sort.POPULAR;
+
+    public static ShotsFragment newInstance() {
+        return new ShotsFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -51,7 +66,8 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         initRefreshLayout();
 
         loading(getString(R.string.is_loading));
-        shotsPresenter.loadShots(currentPage);
+
+        loadShots();
     }
 
     private void initShotsRecyclerView() {
@@ -68,7 +84,7 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
             @Override
             public void onRefresh() {
                 resetShotsStatus();
-                shotsPresenter.loadShots(0);
+                shotsPresenter.loadShots(0, sort.getValue());
             }
         });
 
@@ -80,7 +96,14 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         });
     }
 
+    private void initSortDialog() {
+        popupMenu = new PopupMenu(getActivity(), getActivity().findViewById(R.id.item_sort));
+        popupMenu.getMenuInflater().inflate(R.menu.shots_sort_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(sortMenuItemClickListener);
+    }
+
     private void resetShotsStatus() {
+        sort = Sort.POPULAR;
         currentPage = 0;
         isLoading = true;
         isFinished = false;
@@ -110,11 +133,77 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         }
     }
 
+    private void loadShots() {
+        shotsPresenter.loadShots(currentPage, sort.getValue());
+    }
+
     private StaggeredScrollBottomListener scrollBottomListener = new StaggeredScrollBottomListener() {
         @Override
         public void scrollToBottom() {
             if (isLoading || isFinished) return;
-            shotsPresenter.loadShots(++currentPage);
+            currentPage++;
+            loadShots();
         }
     };
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.item_sort).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_sort) {
+            if (popupMenu == null) {
+                initSortDialog();
+            }
+            popupMenu.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private PopupMenu.OnMenuItemClickListener sortMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.sort_popular:
+                    sortByType(Sort.POPULAR);
+                    return true;
+                case R.id.sort_recent:
+                    sortByType(Sort.RECENT);
+                    return true;
+                case R.id.sort_most_viewed:
+                    sortByType(Sort.VIEWS);
+                    return true;
+                case R.id.sort_most_commented:
+                    sortByType(Sort.COMMENTS);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
+
+    private void sortByType(Sort currentType) {
+        if (sort == currentType) return;
+
+        resetShotsStatus();
+        sort = currentType;
+        loadShots();
+    }
+
+    private enum Sort {
+        POPULAR(""), RECENT("recent"), VIEWS("views"), COMMENTS("comments");
+        private String value;
+
+        Sort(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 }
