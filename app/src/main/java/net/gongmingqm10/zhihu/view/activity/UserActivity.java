@@ -18,6 +18,7 @@ import net.gongmingqm10.zhihu.model.User;
 import net.gongmingqm10.zhihu.presenter.Presenter;
 import net.gongmingqm10.zhihu.presenter.UserPresenter;
 import net.gongmingqm10.zhihu.view.adapter.ShotsRecyclerAdapter;
+import net.gongmingqm10.zhihu.view.adapter.viewholder.ShotViewHolder;
 import net.gongmingqm10.zhihu.view.util.Constants;
 import net.gongmingqm10.zhihu.view.util.ImageLoader;
 import net.gongmingqm10.zhihu.view.util.SpacesItemDecoration;
@@ -68,7 +69,7 @@ public class UserActivity extends BaseActivity implements UserPresenter.UserView
 
         inflateUserInfo(user);
 
-        shotsAdapter = new ShotsRecyclerAdapter(this, new ArrayList<Shot>(), null);
+        shotsAdapter = new ShotsRecyclerAdapter(this, new ArrayList<Shot>(), shotClickListener);
 
         shotsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         shotsRecyclerView.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.m_space)));
@@ -106,4 +107,24 @@ public class UserActivity extends BaseActivity implements UserPresenter.UserView
     public void refreshList(List<Shot> data) {
         shotsAdapter.refreshList(data);
     }
+
+    private ShotViewHolder.ShotClickListener shotClickListener = new ShotViewHolder.ShotClickListener() {
+        @Override
+        public void viewShot(Shot shot) {
+        }
+
+        @Override
+        public void likeShot(Shot shot) {
+        }
+
+        @Override
+        public void viewAuthor(Shot shot) {
+            // User click the Author Panel
+            if (shot.getUser() == null) {
+                showToast(R.string.user_not_found);
+            } else {
+                startActivity(UserActivity.getIntentToMe(UserActivity.this, shot.getUser()));
+            }
+        }
+    };
 }
