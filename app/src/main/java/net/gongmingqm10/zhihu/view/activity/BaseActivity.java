@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import net.gongmingqm10.zhihu.ZhihuApp;
@@ -23,6 +24,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
         setupComponent(((ZhihuApp) getApplication()).component());
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     protected abstract void setupComponent(ZhihuAppComponent appComponent);
@@ -88,4 +94,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     abstract Presenter getPresenter();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

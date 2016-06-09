@@ -17,6 +17,7 @@ import net.gongmingqm10.zhihu.dagger2.ZhihuAppComponent;
 import net.gongmingqm10.zhihu.model.Shot;
 import net.gongmingqm10.zhihu.presenter.ShotsPresenter;
 import net.gongmingqm10.zhihu.view.activity.ShotActivity;
+import net.gongmingqm10.zhihu.view.activity.UserActivity;
 import net.gongmingqm10.zhihu.view.adapter.ShotsRecyclerAdapter;
 import net.gongmingqm10.zhihu.view.adapter.viewholder.ShotViewHolder;
 import net.gongmingqm10.zhihu.view.util.Constants;
@@ -213,7 +214,7 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         @Override
         public void viewShot(Shot shot) {
             // User view this Shot
-            startActivity(ShotActivity.getIntentToMe(getActivity(), shot.getId()));
+            startActivity(ShotActivity.getIntentToMe(getActivity(), shot.getId(), shot.getTitle()));
         }
 
         @Override
@@ -224,6 +225,11 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
         @Override
         public void viewAuthor(Shot shot) {
             // User click the Author Panel
+            if (shot.getUser() == null) {
+                showToast(R.string.user_not_found);
+            } else {
+                startActivity(UserActivity.getIntentToMe(getActivity(), shot.getUser()));
+            }
         }
     };
 }

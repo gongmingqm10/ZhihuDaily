@@ -2,6 +2,7 @@ package net.gongmingqm10.zhihu.view.adapter.viewholder;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,7 +54,9 @@ public class ShotInfoViewHolder extends BaseViewHolder<Shot> {
         ImageLoader.loadImage(context, shotImage, data.getImage().getHidpi());
         authorInfoText.setText(Html.fromHtml(context.getString(R.string.format_author_info, data.getUser().getName(), formatDate(data.getCreatedAt()))));
         shotTitleText.setText(data.getTitle());
-        shotDescText.setText(Html.fromHtml(data.getDescription()));
+        if (!TextUtils.isEmpty(data.getDescription())) {
+            shotDescText.setText(Html.fromHtml(data.getDescription()));
+        }
         shotViewText.setText(String.valueOf(data.getViewsCount()));
         shotLoveText.setText(String.valueOf(data.getLikesCount()));
         shotCommentText.setText(String.valueOf(data.getCommentsCount()));

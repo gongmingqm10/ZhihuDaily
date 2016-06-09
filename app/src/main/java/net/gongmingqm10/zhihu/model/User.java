@@ -2,10 +2,12 @@ package net.gongmingqm10.zhihu.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class User {
+public class User implements Serializable {
     private int id;
     private String name;
     private String username;

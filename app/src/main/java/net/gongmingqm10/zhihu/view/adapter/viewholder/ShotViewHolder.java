@@ -48,15 +48,24 @@ public class ShotViewHolder extends BaseViewHolder<Shot> {
     @Override
     public void populate(final Shot data) {
         if (data == null) return;
+
         bindClickListeners(data);
 
         ImageLoader.loadImage(context, shotImage, data.getImage().getNormal());
-        ImageLoader.loadImage(context, authorAvatar, data.getUser().getAvatarUrl());
 
         shotViewCountText.setText(String.valueOf(data.getViewsCount()));
         shotLoveCountText.setText(String.valueOf(data.getLikesCount()));
         shotCommentsCountText.setText(String.valueOf(data.getCommentsCount()));
-        shotAuthorText.setText(data.getUser().getName());
+
+        if (data.getUser() == null) {
+            authorAvatar.setVisibility(View.GONE);
+            shotAuthorText.setVisibility(View.GONE);
+        } else {
+            authorAvatar.setVisibility(View.VISIBLE);
+            shotAuthorText.setVisibility(View.VISIBLE);
+            ImageLoader.loadImage(context, authorAvatar, data.getUser().getAvatarUrl());
+            shotAuthorText.setText(data.getUser().getName());
+        }
     }
 
     private void bindClickListeners(final Shot data) {
@@ -68,7 +77,7 @@ public class ShotViewHolder extends BaseViewHolder<Shot> {
                 }
             }
         });
-        userPanelView.setOnClickListener(new View.OnClickListener() {
+        authorAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (shotClickListener != null) {
@@ -88,7 +97,9 @@ public class ShotViewHolder extends BaseViewHolder<Shot> {
 
     public interface ShotClickListener {
         void viewShot(Shot shot);
+
         void likeShot(Shot shot);
+
         void viewAuthor(Shot shot);
     }
 }

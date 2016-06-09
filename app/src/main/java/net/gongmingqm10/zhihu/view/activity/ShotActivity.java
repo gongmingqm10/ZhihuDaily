@@ -35,9 +35,10 @@ public class ShotActivity extends BaseActivity implements ShotPresenter.ShotView
 
     private ShotDetailAdapter shotAdapter;
 
-    public static Intent getIntentToMe(Context context, int shotId) {
+    public static Intent getIntentToMe(Context context, int shotId, String shotTitle) {
         Intent intent = new Intent(context, ShotActivity.class);
         intent.putExtra(Constants.PARAM_SHOT_ID, shotId);
+        intent.putExtra(Constants.PARAM_SHOT_TITLE, shotTitle);
         return intent;
     }
 
@@ -45,6 +46,8 @@ public class ShotActivity extends BaseActivity implements ShotPresenter.ShotView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int shotId = getIntent().getIntExtra(Constants.PARAM_SHOT_ID, 0);
+
+        setTitle(getIntent().getStringExtra(Constants.PARAM_SHOT_TITLE));
 
         shotDetailList.setLayoutManager(new LinearLayoutManager(this));
         shotAdapter = new ShotDetailAdapter(this);

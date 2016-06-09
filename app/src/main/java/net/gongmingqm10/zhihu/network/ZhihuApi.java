@@ -20,4 +20,7 @@ public interface ZhihuApi {
 
     @GET("/v1/shots/{id}/comments?per_page=20")
     Call<List<Comment>> listShotComments(@Path("id") int shotId);
+
+    @GET("/v1/users/{id}/shots?per_page=30")
+    Call<List<Shot>> listUserShots(@Path("id") int userId, @Query("page") int page);
 }
