@@ -1,5 +1,5 @@
 # Dribbble Daily
-Dribbble 日报 - Dribbble Daily
+Dribbble 日报 - Dribbble Daily with Android MVP+Dagger2
 
 ## About It
 The project is aimed at using the modern Android architecture. Tech Stack as below:
