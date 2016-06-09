@@ -2,9 +2,9 @@ package net.gongmingqm10.zhihu.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -74,7 +74,7 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
     }
 
     private void initShotsRecyclerView() {
-        shotsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        shotsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         shotsRecyclerView.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.m_space)));
 
         shotsListAdapter = new ShotsRecyclerAdapter(getActivity(), new ArrayList<Shot>(), shotClickListener);
@@ -91,7 +91,7 @@ public class ShotsFragment extends BaseFragment implements ShotsPresenter.ShotsV
             }
         });
 
-        shotsRefreshLayout.setOnTouchListener(new View.OnTouchListener() {
+        shotsRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return isLoading;

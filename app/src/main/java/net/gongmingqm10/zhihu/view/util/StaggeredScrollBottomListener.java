@@ -1,13 +1,13 @@
 package net.gongmingqm10.zhihu.view.util;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 public abstract class StaggeredScrollBottomListener extends RecyclerView.OnScrollListener {
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        int[] firstVisiblePositions = ((StaggeredGridLayoutManager)(recyclerView.getLayoutManager())).findFirstVisibleItemPositions(null);
-        if (!recyclerView.canScrollVertically(1) && firstVisiblePositions[0] != 0) {
+        int firstVisiblePosition = ((GridLayoutManager)(recyclerView.getLayoutManager())).findFirstVisibleItemPosition();
+        if (!recyclerView.canScrollVertically(1) && firstVisiblePosition != 0) {
             scrollToBottom();
         }
     }
