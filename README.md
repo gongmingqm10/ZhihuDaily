@@ -14,11 +14,11 @@ And we use the [Dribbble](http://developer.dribbble.com/v1/) API for the data so
 
 ## Screenshots
 
-![Shot Detail](https://raw.githubusercontent.com/gongmingqm10/ZhihuDaily/master/cuts/Shot-Detail.png)
-
 ![Shots](https://raw.githubusercontent.com/gongmingqm10/ZhihuDaily/master/cuts/Shots.png)
 
 ![User Detail](https://raw.githubusercontent.com/gongmingqm10/ZhihuDaily/master/cuts/User-Detail.png)
+
+![Shot Detail](https://raw.githubusercontent.com/gongmingqm10/ZhihuDaily/master/cuts/Shot-Detail.png)
 
 ## Copyright
 
